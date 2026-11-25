@@ -84,12 +84,17 @@ function formatDateTime(value) {
   const parsed = new Date(value);
   return Number.isNaN(parsed.getTime()) ? value : new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: displayTimeZone, timeZoneName: 'short'}).format(parsed);
 }
+function formatLocalDate(value) {
+  if (!value) return '—';
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? value : new Intl.DateTimeFormat('en-US', {month: 'short', day: 'numeric', year: 'numeric', timeZone: displayTimeZone}).format(parsed);
+}
 function showError(error) { const box = $('app-error'); if (box) { box.textContent = error.message || String(error); box.hidden = false; } }
 
 function renderToday({status, history}) {
   const day = latestDay(history), current = rowsFor(history, day), previous = rowsFor(history, previousDay(history, day));
   $('last-run').textContent = formatDateTime(status.run_time);
-  $('latest-day').textContent = `UTC day ${day || '—'}`;
+  $('latest-day').textContent = `UTC archive: ${day || '—'} · Central date: ${formatLocalDate(status.run_time)}`;
   $('summary-cards').innerHTML = [
     ['Items today', status.items ?? current.length, `${status.new_today ?? 0} new · ${status.gone_today ?? 0} gone`],
     ['History days', status.days_with_success ?? days(history).length, 'days with at least one raw file'],
