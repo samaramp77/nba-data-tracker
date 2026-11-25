@@ -115,3 +115,32 @@ def test_second_run_on_same_day_replaces_raw_and_history(monkeypatch, tmp_path):
     assert len(rows) == 2
     assert {row["value_1"] for row in rows} == {"120", "12"}
     assert json.loads(status.read_text())["items"] == 2
+
+
+def test_same_day_issue_rerun_updates_existing_issue(monkeypatch):
+    monkeypatch.setenv("GITHUB_REPOSITORY", "samaramp77/nba-data-tracker")
+    monkeypatch.setenv("GITHUB_TOKEN", "test-token")
+    calls = []
+
+    def fake_github_request(method, url, token, payload=None):
+        calls.append((method, url, payload))
+        if method == "GET":
+            return [
+                {"number": 12, "title": "2026-11-24", "state": "open"},
+                {"number": 13, "title": "2026-11-25", "state": "open"},
+            ]
+        return {}
+
+    monkeypatch.setattr(pipeline, "github_request", fake_github_request)
+    pipeline.update_github_issue(
+        {"run_time": "2026-11-25T02:00:00Z", "items": 1, "new_today": 0, "gone_today": 0, "sources": []},
+        [],
+        "2026-11-25",
+    )
+
+    assert calls[0][0] == "GET"
+    assert ("PATCH", "https://api.github.com/repos/samaramp77/nba-data-tracker/issues/12", {"state": "closed"}) in calls
+    update = next(call for call in calls if call[1].endswith("/issues/13"))
+    assert update[0] == "PATCH"
+    assert update[2]["state"] == "open"
+    assert not any(call[0] == "POST" for call in calls)
