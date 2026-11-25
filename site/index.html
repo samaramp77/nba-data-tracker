@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <title>NBA Data Tracker · Today</title>
+</head>
+<body data-page="today">
+  <div class="shell">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="index.html"><span class="brand-mark">NBA</span><span>Data Tracker</span></a>
+      <div class="nav-links"><a class="active" href="index.html">Today</a><a href="browse.html">Browse</a><a href="trends.html">Trends</a></div>
+      <span class="live-dot">Daily pipeline</span>
+    </nav>
+    <main>
+      <section class="hero split-hero">
+        <div><p class="eyebrow">NBA / DAILY SNAPSHOT</p><h1>Today, in the league.</h1><p class="lede">A compact read on the latest NBA standings and scoreboard data, collected once a day and rebuilt from the raw archive.</p></div>
+        <div class="hero-note"><span class="note-label">Last run</span><strong id="last-run">Loading…</strong><span id="latest-day">UTC day —</span></div>
+      </section>
+      <div id="app-error" class="notice error" hidden></div>
+      <section id="summary-cards" class="stat-grid" aria-label="Run summary"></section>
+      <section class="section-block"><div class="section-heading"><div><p class="eyebrow">SOURCE HEALTH</p><h2>Two feeds, one daily pulse.</h2></div><span class="section-meta" id="source-meta"></span></div><div id="source-cards" class="source-grid"></div></section>
+      <section class="section-block"><div class="section-heading"><div><p class="eyebrow">LATEST VALUES</p><h2>What changed since the previous collected day?</h2></div><a class="text-link" href="browse.html">Browse all →</a></div><div class="table-wrap"><table id="latest-table"><thead><tr><th>Item</th><th>Source</th><th>Value 1</th><th>Value 2</th><th>Value 3</th><th>Value 4</th><th>Movement</th></tr></thead><tbody></tbody></table></div></section>
+      <section class="section-block"><div class="section-heading"><div><p class="eyebrow">SIGNAL</p><h2>Biggest moves</h2></div><span class="section-meta">relative movement score</span></div><div id="moves-list" class="move-list"></div></section>
+    </main>
+    <footer><span>Built from the repository’s raw NBA archive.</span><span><a href="browse.html">Browse</a> · <a href="trends.html">Trends</a></span></footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

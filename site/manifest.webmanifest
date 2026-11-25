@@ -1,0 +1,10 @@
+{
+  "name": "NBA Data Tracker",
+  "short_name": "NBA Tracker",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#07111f",
+  "theme_color": "#07111f",
+  "description": "A daily NBA data archive and trend report.",
+  "icons": [{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
