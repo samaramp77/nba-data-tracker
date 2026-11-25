@@ -78,6 +78,20 @@ function changeFor(row, previous) {
   const direction = primaryOld !== null && primaryNew !== null && primaryNew >= primaryOld ? '↑' : '↓';
   return {label: `${direction} ${Math.round(score * 100)}%`, className: direction === '↑' ? 'up' : 'down'};
 }
+function metricLabels(row) {
+  if (row.category === 'standings') return [['Wins', 'value_1'], ['Losses', 'value_2'], ['Win %', 'value_3'], ['Games behind', 'value_4']];
+  if (row.category === 'game') return [['Home points', 'value_1'], ['Away points', 'value_2'], ['Margin', 'value_3'], ['Attendance', 'value_4']];
+  return [['Metric 1', 'value_1'], ['Metric 2', 'value_2'], ['Metric 3', 'value_3'], ['Metric 4', 'value_4']];
+}
+function metricValue(row, column) {
+  const value = number(row[column]);
+  if (value === null) return '—';
+  if (row.category === 'standings' && column === 'value_3') return `${(value * 100).toFixed(1)}%`;
+  return fmt(value);
+}
+function metricMarkup(row) {
+  return `<div class="metrics-cell">${metricLabels(row).filter(([, column]) => row[column] !== '').map(([label, column]) => `<span class="metric-chip"><b>${label}</b>${metricValue(row, column)}</span>`).join('')}</div>`;
+}
 function statusText(value) { return value ? '<span class="ok">OK</span>' : '<span class="bad">FAILED</span>'; }
 function formatDateTime(value) {
   if (!value) return 'Not run yet';
@@ -106,15 +120,15 @@ function renderToday({status, history}) {
   const latestRows = [...current].sort((a, b) => (a.category || '').localeCompare(b.category || '') || a.item.localeCompare(b.item)).slice(0, 60);
   $('latest-table').querySelector('tbody').innerHTML = latestRows.length ? latestRows.map(row => {
     const move = changeFor(row, previous);
-    return `<tr><td>${escapeHTML(row.item)}</td><td class="muted">${escapeHTML(row.source.replaceAll('_', ' '))}</td>${numericColumns.map(column => `<td class="mono">${fmt(row[column])}</td>`).join('')}<td><span class="movement ${move.className}">${move.label}</span></td></tr>`;
-  }).join('') : '<tr><td colspan="7" class="muted">No rows have been collected yet.</td></tr>';
+    return `<tr><td>${escapeHTML(row.item)}</td><td class="muted">${escapeHTML(row.source.replaceAll('_', ' '))}</td><td>${metricMarkup(row)}</td><td><span class="movement ${move.className}">${move.label}</span></td></tr>`;
+  }).join('') : '<tr><td colspan="4" class="muted">No rows have been collected yet.</td></tr>';
   const moves = calculateMoves(previous, current);
   $('moves-list').innerHTML = moves.length ? moves.map(move => {
     const row = move.new || move.old;
     return `<div class="move-row"><strong>${escapeHTML(row.item)}</strong><span class="move-kind">${move.kind}</span><span class="move-detail">${escapeHTML(move.old ? numericSummary(move.old) : '—')} → ${escapeHTML(move.new ? numericSummary(move.new) : '—')}</span></div>`;
   }).join('') : '<div class="notice">No numeric values moved relative to the previous collected day.</div>';
 }
-function numericSummary(row) { return numericColumns.filter(column => row[column] !== '').map(column => `${column.replace('value_', 'v')} ${fmt(row[column])}`).join(' · '); }
+function numericSummary(row) { return metricLabels(row).filter(([, column]) => row[column] !== '').map(([label, column]) => `${label} ${metricValue(row, column)}`).join(' · '); }
 
 function shortlist() { try { return new Set(JSON.parse(localStorage.getItem(shortlistKey) || '[]')); } catch (_) { return new Set(); } }
 function saveShortlist(set) { localStorage.setItem(shortlistKey, JSON.stringify([...set])); }
@@ -132,7 +146,7 @@ function renderBrowse({status, history}) {
       return a.item.localeCompare(b.item);
     });
     $('browse-count').textContent = `${filtered.length} of ${current.length} items`;
-    $('browse-table').querySelector('tbody').innerHTML = filtered.length ? filtered.map(row => `<tr><td><button class="star ${saved.has(key(row)) ? 'saved' : ''}" data-key="${escapeHTML(key(row))}" aria-label="${saved.has(key(row)) ? 'Remove from shortlist' : 'Add to shortlist'}">${saved.has(key(row)) ? '★' : '☆'}</button></td><td>${escapeHTML(row.item)}</td><td class="muted">${escapeHTML(row.source.replaceAll('_', ' '))}</td><td class="muted">${escapeHTML(row.category)}</td>${numericColumns.map(column => `<td class="mono">${fmt(row[column])}</td>`).join('')}<td class="muted">${escapeHTML(row.game_status)}</td></tr>`).join('') : '<tr><td colspan="9" class="muted">No items match these filters.</td></tr>';
+    $('browse-table').querySelector('tbody').innerHTML = filtered.length ? filtered.map(row => `<tr><td><button class="star ${saved.has(key(row)) ? 'saved' : ''}" data-key="${escapeHTML(key(row))}" aria-label="${saved.has(key(row)) ? 'Remove from shortlist' : 'Add to shortlist'}">${saved.has(key(row)) ? '★' : '☆'}</button></td><td>${escapeHTML(row.item)}</td><td class="muted">${escapeHTML(row.source.replaceAll('_', ' '))}</td><td class="muted">${escapeHTML(row.category)}</td><td>${metricMarkup(row)}</td><td class="muted">${escapeHTML(row.game_status)}</td></tr>`).join('') : '<tr><td colspan="6" class="muted">No items match these filters.</td></tr>';
     $('browse-table').querySelectorAll('.star').forEach(button => button.addEventListener('click', () => { const next = shortlist(); next.has(button.dataset.key) ? next.delete(button.dataset.key) : next.add(button.dataset.key); saveShortlist(next); draw(); }));
   };
   ['search-input', 'source-filter', 'category-filter', 'sort-column', 'sort-direction', 'shortlist-only'].forEach(id => $(id).addEventListener('input', draw));
@@ -177,10 +191,10 @@ function renderTrends({history}) {
   const maxMargin = dateList.map(day => { const values = rowsFor(history, day).filter(row => row.category === 'game').map(row => Math.abs(number(row.value_3))).filter(value => value !== null); return values.length ? Math.max(...values) : null; });
   const currentWins = teams.slice(0, 5).map(team => number(team.value_1) || 0);
   const cards = [
-    {title: `${teams[0]?.item || 'The league'} leads the latest standings`, text: `The top team has ${fmt(teams[0]?.value_1)} wins and ${fmt(teams[0]?.value_2)} losses. This is the latest-day standings row, not a projection.`, chart: barSVG(teams.slice(0, 5).map(team => team.team_abbreviation || team.item), currentWins), method: 'Computed from the latest-day standings rows, sorted by value_1 (wins).'},
-    {title: `The standings spread is ${fmt(spread.at(-1))} wins`, text: `The gap between the most and least wins currently represented in the standings is ${fmt(spread.at(-1))}.`, chart: chartSVG([{name: 'win spread', values: spread}], {labels: dateList}), method: 'For each date, max(value_1) minus min(value_1) across standings rows.'},
-    {title: `The largest latest game margin is ${fmt(maxMargin.at(-1))} points`, text: `The biggest absolute home-margin value in the latest scoreboard snapshot is ${fmt(maxMargin.at(-1))} points.`, chart: chartSVG([{name: 'max margin', values: maxMargin}], {labels: dateList}), method: 'For each date, take the maximum absolute value_3 among game rows.'},
-    {title: `Average win percentage is ${avgPct.at(-1) === null ? 'not available' : (avgPct.at(-1) * 100).toFixed(1) + '%'}`, text: `Across teams represented in the latest standings snapshot, the mean win percentage is ${avgPct.at(-1) === null ? 'not available yet' : (avgPct.at(-1) * 100).toFixed(1) + '%'}.`, chart: chartSVG([{name: 'average win %', values: avgPct}], {labels: dateList}), method: 'For each date, average value_3 across standings rows with a numeric value.'}
+    {title: `${teams[0]?.item || 'The league'} leads the latest standings`, text: `The top team has ${fmt(teams[0]?.value_1)} wins and ${fmt(teams[0]?.value_2)} losses. This is the latest-day standings row, not a projection.`, chart: barSVG(teams.slice(0, 5).map(team => team.team_abbreviation || team.item), currentWins), method: 'Computed from the latest-day standings rows, sorted by wins.'},
+    {title: `The standings spread is ${fmt(spread.at(-1))} wins`, text: `The gap between the most and least wins currently represented in the standings is ${fmt(spread.at(-1))}.`, chart: chartSVG([{name: 'win spread', values: spread}], {labels: dateList}), method: 'For each date, the most wins minus the fewest wins across teams.'},
+    {title: `The largest latest game margin is ${fmt(maxMargin.at(-1))} points`, text: `The biggest absolute home-margin value in the latest scoreboard snapshot is ${fmt(maxMargin.at(-1))} points.`, chart: chartSVG([{name: 'max margin', values: maxMargin}], {labels: dateList}), method: 'For each date, take the largest absolute margin among games.'},
+    {title: `Average win percentage is ${avgPct.at(-1) === null ? 'not available' : (avgPct.at(-1) * 100).toFixed(1) + '%'}`, text: `Across teams represented in the latest standings snapshot, the mean win percentage is ${avgPct.at(-1) === null ? 'not available yet' : (avgPct.at(-1) * 100).toFixed(1) + '%'}.`, chart: chartSVG([{name: 'average win %', values: avgPct}], {labels: dateList}), method: 'For each date, average the teams’ win percentages.'}
   ];
   $('findings').innerHTML = cards.map(card => `<article class="finding-card"><p class="eyebrow">FINDING</p><h3>${escapeHTML(card.title)}</h3><p>${escapeHTML(card.text)} <span class="muted">${escapeHTML(card.method)}</span></p>${card.chart}</article>`).join('');
 }

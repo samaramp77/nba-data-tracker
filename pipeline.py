@@ -367,7 +367,13 @@ def write_status(status: dict[str, Any], path: Path | None = None) -> None:
 def display_row(row: dict[str, Any] | None) -> str:
     if row is None:
         return "—"
-    values = [f"{column}={row.get(column, '')}" for column in NUMERIC_COLUMNS if row.get(column, "") != ""]
+    if row.get("category") == "standings":
+        labels = {"value_1": "Wins", "value_2": "Losses", "value_3": "Win %", "value_4": "Games behind"}
+    elif row.get("category") == "game":
+        labels = {"value_1": "Home points", "value_2": "Away points", "value_3": "Margin", "value_4": "Attendance"}
+    else:
+        labels = {column: column for column in NUMERIC_COLUMNS}
+    values = [f"{labels[column]}={row.get(column, '')}" for column in NUMERIC_COLUMNS if row.get(column, "") != ""]
     return ", ".join(values) or "no numeric values"
 
 

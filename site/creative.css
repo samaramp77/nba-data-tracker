@@ -1,5 +1,6 @@
 /* Playful court-side details: all CSS, so the animation survives offline. */
 .brand-mark{display:inline-flex;align-items:center;gap:5px;padding:6px 8px 6px 6px;border-radius:7px;box-shadow:0 4px 0 #2d9db0,0 8px 16px #02071145;transform:rotate(-2deg)}
+.metrics-cell{display:flex;flex-wrap:wrap;gap:6px;min-width:290px}.metric-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 7px;border:1px solid #2a405c;border-radius:5px;background:#0a1727;color:var(--ink);font:11px 'DM Mono',monospace}.metric-chip b{color:var(--cyan);font:10px Manrope,sans-serif;letter-spacing:.02em}
 .mini-ball,.sign-ball{display:inline-block;position:relative;border-radius:50%;background:linear-gradient(135deg,#ffd77d 0 17%,#ffab52 18% 58%,#f2763d 100%);border:1.5px solid #fff0bc;box-shadow:inset -4px -4px 0 #c8533a55}
 .mini-ball{width:13px;height:13px}.mini-ball:before,.mini-ball:after,.sign-ball:before,.sign-ball:after{content:"";position:absolute;border-color:#8c3d35;border-style:solid}
 .mini-ball:before,.sign-ball:before{width:55%;height:160%;left:22%;top:-30%;border-width:0 1px 0 0;border-radius:50%;transform:rotate(38deg)}
