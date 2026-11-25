@@ -52,7 +52,7 @@ date,item_id,item,source,value_1,value_2,value_3,value_4,unit,category,team_abbr
 2026-11-25,team:17,Brooklyn Nets,nba_standings,3,13,0.1875,10,wins; losses; win percentage; games behind,standings,BKN,,,current
 2026-11-25,team:18,New York Knicks,nba_standings,11,6,0.64705884,2.5,wins; losses; win percentage; games behind,standings,NY,,,current
 2026-11-25,team:19,Orlando Magic,nba_standings,7,10,0.4117647,6.5,wins; losses; win percentage; games behind,standings,ORL,,,current
-2026-11-25,team:2,Boston Celtics,nba_standings,11,6,0.64705884,2.5,wins; losses; win percentage; games behind,standings,BOS,,,current
+2026-11-25,team:2,Boston Celtics,nba_standings,12,6,0.6666667,2,wins; losses; win percentage; games behind,standings,BOS,,,current
 2026-11-25,team:20,Philadelphia 76ers,nba_standings,14,4,0.7777778,0,wins; losses; win percentage; games behind,standings,PHI,,,current
 2026-11-25,team:21,Phoenix Suns,nba_standings,9,7,0.5625,5,wins; losses; win percentage; games behind,standings,PHX,,,current
 2026-11-25,team:22,Portland Trail Blazers,nba_standings,11,6,0.64705884,3.5,wins; losses; win percentage; games behind,standings,POR,,,current
@@ -60,14 +60,14 @@ date,item_id,item,source,value_1,value_2,value_3,value_4,unit,category,team_abbr
 2026-11-25,team:24,San Antonio Spurs,nba_standings,15,3,0.8333333,0,wins; losses; win percentage; games behind,standings,SA,,,current
 2026-11-25,team:25,Oklahoma City Thunder,nba_standings,10,8,0.5555556,5,wins; losses; win percentage; games behind,standings,OKC,,,current
 2026-11-25,team:26,Utah Jazz,nba_standings,3,16,0.15789473,12.5,wins; losses; win percentage; games behind,standings,UTAH,,,current
-2026-11-25,team:27,Washington Wizards,nba_standings,7,11,0.3888889,7,wins; losses; win percentage; games behind,standings,WSH,,,current
+2026-11-25,team:27,Washington Wizards,nba_standings,7,12,0.36842105,7.5,wins; losses; win percentage; games behind,standings,WSH,,,current
 2026-11-25,team:28,Toronto Raptors,nba_standings,6,11,0.3529412,7.5,wins; losses; win percentage; games behind,standings,TOR,,,current
 2026-11-25,team:29,Memphis Grizzlies,nba_standings,13,5,0.7222222,2,wins; losses; win percentage; games behind,standings,MEM,,,current
 2026-11-25,team:3,New Orleans Pelicans,nba_standings,5,14,0.2631579,10.5,wins; losses; win percentage; games behind,standings,NO,,,current
 2026-11-25,team:30,Charlotte Hornets,nba_standings,4,12,0.25,9,wins; losses; win percentage; games behind,standings,CHA,,,current
 2026-11-25,team:4,Chicago Bulls,nba_standings,5,12,0.29411766,8.5,wins; losses; win percentage; games behind,standings,CHI,,,current
 2026-11-25,team:5,Cleveland Cavaliers,nba_standings,9,9,0.5,5,wins; losses; win percentage; games behind,standings,CLE,,,current
-2026-11-25,team:6,Dallas Mavericks,nba_standings,10,7,0.5882353,4.5,wins; losses; win percentage; games behind,standings,DAL,,,current
-2026-11-25,team:7,Denver Nuggets,nba_standings,10,5,0.6666667,3.5,wins; losses; win percentage; games behind,standings,DEN,,,current
+2026-11-25,team:6,Dallas Mavericks,nba_standings,11,7,0.6111111,4,wins; losses; win percentage; games behind,standings,DAL,,,current
+2026-11-25,team:7,Denver Nuggets,nba_standings,10,6,0.625,4,wins; losses; win percentage; games behind,standings,DEN,,,current
 2026-11-25,team:8,Detroit Pistons,nba_standings,11,6,0.64705884,2.5,wins; losses; win percentage; games behind,standings,DET,,,current
 2026-11-25,team:9,Golden State Warriors,nba_standings,9,8,0.5294118,5.5,wins; losses; win percentage; games behind,standings,GS,,,current
