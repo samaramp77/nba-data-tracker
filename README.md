@@ -1,5 +1,7 @@
 # NBA Data Tracker
 
+[![Tests](https://github.com/samaramp77/nba-data-tracker/actions/workflows/tests.yml/badge.svg)](https://github.com/samaramp77/nba-data-tracker/actions/workflows/tests.yml)
+
 An automatically refreshed NBA data archive and browser report. GitHub Actions runs the collector daily at 06:17 UTC. The collector saves compressed raw responses, rebuilds the history from those raw files, writes the latest status, opens that day’s GitHub Issue, closes the previous day’s issue, and commits the data.
 
 ## Sources

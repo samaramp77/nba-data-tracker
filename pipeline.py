@@ -433,20 +433,42 @@ def update_github_issue(status: dict[str, Any], moves: list[dict[str, Any]], run
         return
     api_root = f"https://api.github.com/repos/{repository}"
     try:
-        issues = github_request("GET", f"{api_root}/issues?state=open&per_page=100", token) or []
+        issues = github_request("GET", f"{api_root}/issues?state=all&per_page=100", token) or []
         yesterday = (date.fromisoformat(run_date) - timedelta(days=1)).isoformat()
+        current_issues = []
         for issue in issues:
             if issue.get("pull_request"):
                 continue
-            if issue.get("title") in {run_date, yesterday}:
+            if issue.get("title") == run_date:
+                current_issues.append(issue)
+            elif issue.get("title") == yesterday and issue.get("state") == "open":
                 github_request("PATCH", f"{api_root}/issues/{issue['number']}", token, {"state": "closed"})
-        github_request(
-            "POST",
-            f"{api_root}/issues",
-            token,
-            {"title": run_date, "body": make_issue_body(status, moves, run_date), "labels": ["data-tracker"]},
-        )
-        print(f"GitHub issue opened for {run_date}")
+        body = make_issue_body(status, moves, run_date)
+        if current_issues:
+            # A rerun on the same day updates the existing issue instead of
+            # creating a second issue for the same date.
+            current_issues.sort(key=lambda issue: issue.get("number", 0), reverse=True)
+            current_issue = current_issues[0]
+            github_request(
+                "PATCH",
+                f"{api_root}/issues/{current_issue['number']}",
+                token,
+                {"body": body, "state": "open"},
+            )
+            # Keep one active issue for the current date if an older run left
+            # duplicate open issues behind.
+            for duplicate in current_issues[1:]:
+                if duplicate.get("state") == "open":
+                    github_request("PATCH", f"{api_root}/issues/{duplicate['number']}", token, {"state": "closed"})
+            print(f"GitHub issue updated for {run_date}")
+        else:
+            github_request(
+                "POST",
+                f"{api_root}/issues",
+                token,
+                {"title": run_date, "body": body, "labels": ["data-tracker"]},
+            )
+            print(f"GitHub issue opened for {run_date}")
     except (HTTPError, URLError, TimeoutError, ValueError) as error:
         # A transient GitHub outage should not prevent the data commit.
         print(f"GitHub issue update failed: {error}", file=sys.stderr)
