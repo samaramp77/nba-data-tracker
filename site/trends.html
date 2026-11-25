@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#07111f"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css">
+  <meta name="theme-color" content="#07111f"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="creative.css">
   <title>NBA Data Tracker · Trends</title>
 </head>
 <body data-page="trends">
-  <div class="shell"><nav class="nav" aria-label="Primary navigation"><a class="brand" href="index.html"><span class="brand-mark">NBA</span><span>Data Tracker</span></a><div class="nav-links"><a href="index.html">Today</a><a href="browse.html">Browse</a><a class="active" href="trends.html">Trends</a></div><span class="live-dot">Daily pipeline</span></nav>
+  <div class="shell"><nav class="nav" aria-label="Primary navigation"><a class="brand" href="index.html"><span class="brand-mark"><span class="mini-ball" aria-hidden="true"></span><span>NBA</span></span><span>Data Tracker</span></a><div class="nav-links"><a href="index.html">Today</a><a href="browse.html">Browse</a><a class="active" href="trends.html">Trends</a></div><span class="live-dot">Daily pipeline</span></nav>
     <main><section class="hero compact-hero"><p class="eyebrow">NBA / HISTORY REPORT</p><h1>The season, in motion.</h1><p class="lede">Every number on this page is calculated in the browser from <code>data/history.csv</code>, so the report grows with the archive.</p></section>
       <div id="app-error" class="notice error" hidden></div>
       <section class="section-block trend-explorer"><div class="section-heading"><div><p class="eyebrow">CUSTOM VIEW</p><h2>Track a value over collected days.</h2></div><span class="section-meta" id="trend-days"></span></div><div class="trend-controls"><label>Numeric value<select id="trend-column"><option value="value_1">Value 1</option><option value="value_2">Value 2</option><option value="value_3">Value 3</option><option value="value_4">Value 4</option></select></label><label>Items to show<select id="trend-items" multiple size="5"></select></label></div><div id="trend-chart" class="chart-panel"></div></section>

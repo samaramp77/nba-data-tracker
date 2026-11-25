@@ -7,19 +7,20 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="creative.css">
   <title>NBA Data Tracker · Today</title>
 </head>
 <body data-page="today">
   <div class="shell">
     <nav class="nav" aria-label="Primary navigation">
-      <a class="brand" href="index.html"><span class="brand-mark">NBA</span><span>Data Tracker</span></a>
+      <a class="brand" href="index.html"><span class="brand-mark"><span class="mini-ball" aria-hidden="true"></span><span>NBA</span></span><span>Data Tracker</span></a>
       <div class="nav-links"><a class="active" href="index.html">Today</a><a href="browse.html">Browse</a><a href="trends.html">Trends</a></div>
       <span class="live-dot">Daily pipeline</span>
     </nav>
     <main>
       <section class="hero split-hero">
         <div><p class="eyebrow">NBA / DAILY SNAPSHOT</p><h1>Today, in the league.</h1><p class="lede">A compact read on the latest NBA standings and scoreboard data, collected once a day and rebuilt from the raw archive.</p></div>
-        <div class="hero-note"><span class="note-label">Last run</span><strong id="last-run">Loading…</strong><span id="latest-day">UTC day —</span></div>
+        <div class="hero-art" aria-label="A stylized NBA sign with a bouncing basketball"><div class="signboard"><span class="sign-top">THE DAILY</span><div class="sign-lockup"><span class="sign-ball" aria-hidden="true"></span><strong>NBA</strong></div><span class="sign-bottom">DATA LEAGUE</span></div><div class="dribble-zone"><span class="dribble-ball" aria-hidden="true"></span><span class="dribble-shadow" aria-hidden="true"></span><span class="court-line" aria-hidden="true"></span></div><div class="hero-note"><span class="note-label">Last run · Central Time</span><strong id="last-run">Loading…</strong><span id="latest-day">Archive day (UTC) —</span></div></div>
       </section>
       <div id="app-error" class="notice error" hidden></div>
       <section id="summary-cards" class="stat-grid" aria-label="Run summary"></section>

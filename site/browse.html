@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#07111f"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css">
+  <meta name="theme-color" content="#07111f"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="creative.css">
   <title>NBA Data Tracker · Browse</title>
 </head>
 <body data-page="browse">
-  <div class="shell"><nav class="nav" aria-label="Primary navigation"><a class="brand" href="index.html"><span class="brand-mark">NBA</span><span>Data Tracker</span></a><div class="nav-links"><a href="index.html">Today</a><a class="active" href="browse.html">Browse</a><a href="trends.html">Trends</a></div><span class="live-dot">Daily pipeline</span></nav>
+  <div class="shell"><nav class="nav" aria-label="Primary navigation"><a class="brand" href="index.html"><span class="brand-mark"><span class="mini-ball" aria-hidden="true"></span><span>NBA</span></span><span>Data Tracker</span></a><div class="nav-links"><a href="index.html">Today</a><a class="active" href="browse.html">Browse</a><a href="trends.html">Trends</a></div><span class="live-dot">Daily pipeline</span></nav>
     <main><section class="hero compact-hero"><p class="eyebrow">NBA / EXPLORER</p><h1>Browse the latest collection.</h1><p class="lede">Filter standings and game snapshots, sort any numeric measure, and keep a shortlist in this browser.</p></section>
       <div id="app-error" class="notice error" hidden></div>
       <section class="controls" aria-label="Browse controls"><label>Search item name<input id="search-input" type="search" placeholder="e.g. Celtics"></label><label>Source<select id="source-filter"><option value="">All sources</option></select></label><label>Category<select id="category-filter"><option value="">All categories</option></select></label><label>Sort numeric column<select id="sort-column"><option value="">Date / item</option><option value="value_1">Value 1</option><option value="value_2">Value 2</option><option value="value_3">Value 3</option><option value="value_4">Value 4</option></select></label><label>Direction<select id="sort-direction"><option value="desc">High to low</option><option value="asc">Low to high</option></select></label><label class="check-label"><input id="shortlist-only" type="checkbox"> Shortlist only</label></section>

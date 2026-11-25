@@ -1,5 +1,6 @@
 const numericColumns = ['value_1', 'value_2', 'value_3', 'value_4'];
 const shortlistKey = 'nba-tracker-shortlist';
+const displayTimeZone = 'America/Chicago';
 const colors = ['#6ee7f5', '#ffad66', '#92e6b5', '#ff8f91', '#c5a8ff', '#f6e58d'];
 
 const $ = id => document.getElementById(id);
@@ -81,7 +82,7 @@ function statusText(value) { return value ? '<span class="ok">OK</span>' : '<spa
 function formatDateTime(value) {
   if (!value) return 'Not run yet';
   const parsed = new Date(value);
-  return Number.isNaN(parsed.getTime()) ? value : parsed.toLocaleString(undefined, {dateStyle: 'medium', timeStyle: 'short', timeZone: 'UTC'}) + ' UTC';
+  return Number.isNaN(parsed.getTime()) ? value : new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: displayTimeZone, timeZoneName: 'short'}).format(parsed);
 }
 function showError(error) { const box = $('app-error'); if (box) { box.textContent = error.message || String(error); box.hidden = false; } }
 

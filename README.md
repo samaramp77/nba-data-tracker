@@ -34,7 +34,7 @@ Raw responses are stored at `data/raw/YYYY-MM-DD/<source>.<format>.gz`. Raw byte
 | `game_id` | ESPN game identifier when the row represents a game | text |
 | `game_status` | ESPN status for a game or `current` for standings | text |
 
-`data/status.json` contains `run_time` (UTC timestamp), `first_run_date`, `days_with_success`, `items`, `new_today`, `gone_today`, and one `sources` entry per source with `name`, `ok`, and `count`.
+`data/status.json` contains `run_time` (UTC timestamp), `first_run_date`, `days_with_success`, `items`, `new_today`, `gone_today`, and one `sources` entry per source with `name`, `ok`, and `count`. The dashboard displays that UTC timestamp in America/Chicago Central Time while retaining UTC in the data file as required.
 
 ## Move rule
 
@@ -55,6 +55,7 @@ The `site/` folder is a static, installable web app. `index.html` is Today, `bro
 - `site/trends.html` — Trends report with an item picker, a value-over-time chart, and four calculated findings.
 - `site/app.js` — browser-side data loading and calculations shared by all pages.
 - `site/styles.css` — shared fonts, colors, layout, tables, cards, and responsive behavior.
+- `site/creative.css` — custom court-side details: NBA-style badge, basketball mark, and reduced-motion-safe dribbling animation.
 - `site/manifest.webmanifest` — installable web app manifest.
 - `site/sw.js` — service worker for online refresh and offline fallback.
 - `site/icon.svg` — app icon.
