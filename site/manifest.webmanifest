@@ -3,8 +3,8 @@
   "short_name": "NBA Tracker",
   "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#07111f",
-  "theme_color": "#07111f",
+  "background_color": "#180b1d",
+  "theme_color": "#ff91d2",
   "description": "A daily NBA data archive and trend report.",
   "icons": [{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
 }

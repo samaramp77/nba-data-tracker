@@ -56,6 +56,7 @@ The `site/` folder is a static, installable web app. `index.html` is Today, `bro
 - `site/app.js` — browser-side data loading and calculations shared by all pages.
 - `site/styles.css` — shared fonts, colors, layout, tables, cards, and responsive behavior.
 - `site/creative.css` — custom court-side details: NBA-style badge, basketball mark, and reduced-motion-safe dribbling animation.
+- `site/girly.css` — pink/plum theme and jeweled hoop styling.
 - `site/manifest.webmanifest` — installable web app manifest.
 - `site/sw.js` — service worker for online refresh and offline fallback.
 - `site/icon.svg` — app icon.

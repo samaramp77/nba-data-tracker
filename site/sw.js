@@ -1,5 +1,5 @@
-const CACHE = 'nba-tracker-v2';
-const SHELL = ['index.html', 'browse.html', 'trends.html', 'styles.css', 'creative.css', 'app.js', 'manifest.webmanifest', 'icon.svg'];
+const CACHE = 'nba-tracker-v3';
+const SHELL = ['index.html', 'browse.html', 'trends.html', 'styles.css', 'creative.css', 'girly.css', 'app.js', 'manifest.webmanifest', 'icon.svg'];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(SHELL)).then(() => self.skipWaiting()));
