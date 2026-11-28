@@ -1,15 +1,15 @@
 {
-  "run_time": "2026-11-27T16:39:33.260237Z",
+  "run_time": "2026-11-28T15:31:35.010304Z",
   "first_run_date": "2026-11-24",
-  "days_with_success": 4,
-  "items": 41,
-  "new_today": 11,
-  "gone_today": 0,
+  "days_with_success": 5,
+  "items": 35,
+  "new_today": 5,
+  "gone_today": 11,
   "sources": [
     {
       "name": "nba_scoreboard",
       "ok": true,
-      "count": 11
+      "count": 5
     },
     {
       "name": "nba_standings",
